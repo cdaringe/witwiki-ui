@@ -1,0 +1,9 @@
+{
+  "triggerTaskOnSave.restart": true,
+  "triggerTaskOnSave.showStatusBarToggle": true,
+  "triggerTaskOnSave.tasks": {
+    "build": ["**/*"]
+  },
+  "triggerTaskOnSave.on": false,
+  "triggerTaskOnSave.showNotifications": false
+}
