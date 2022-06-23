@@ -20,7 +20,7 @@ import Html.Events exposing (stopPropagationOn)
 import Http
 import Iso8601
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline exposing (custom, hardcoded, required)
+import Json.Decode.Pipeline exposing (custom, hardcoded, optional, required)
 import Post.Body as Body exposing (Body)
 import Post.Slug as Slug exposing (Slug)
 import Post.Tag as Tag exposing (Tag)
@@ -177,14 +177,23 @@ fullDecoder maybeCred =
         |> required "body" (Decode.map Full Body.decoder)
 
 
+intToPosix : Int -> Time.Posix
+intToPosix ms =
+    Time.millisToPosix (ms * 1000)
+
+
 internalsDecoder : Maybe Cred -> Decoder Internals
 internalsDecoder maybeCred =
     Decode.succeed Internals
         |> required "body" (Decode.map (Maybe.withDefault "") (Decode.nullable Decode.string))
-        |> required "created_at" Iso8601.decoder
+        |> required "created_at"
+            (Decode.map
+                intToPosix
+                Decode.int
+            )
         |> required "id" Decode.int
         |> required "slug" Slug.decoder
-        |> required "tags" (Decode.list Decode.string)
+        |> optional "tags" (Decode.list Decode.string) []
         |> required "title" Decode.string
 
 

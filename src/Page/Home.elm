@@ -270,6 +270,10 @@ update msg model =
             ( { model | feed = Loaded feed }, Cmd.none )
 
         CompletedFeedLoad (Err error) ->
+            let
+                vv =
+                    Debug.log (Debug.toString error) ()
+            in
             ( { model | feed = Failed }, Cmd.none )
 
         CompletedTagsLoad (Ok tags) ->

@@ -121,7 +121,7 @@ favorite slug =
 
 posts : List QueryParameter -> Endpoint
 posts params =
-    url [ "posts/recent" ] params Wit
+    url [ "posts", "recent" ] params Wit
 
 
 profiles : Username -> Endpoint
