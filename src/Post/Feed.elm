@@ -233,7 +233,7 @@ replaceArticle newArticle oldArticle =
 decoder : Maybe Cred -> Int -> Decoder (PaginatedList (Post Preview))
 decoder maybeCred resultsPerPage =
     Decode.succeed PaginatedList.fromList
-        |> required "articlesCount" (pageCountDecoder resultsPerPage)
+        |> required "count" (pageCountDecoder resultsPerPage)
         |> required "posts" (Decode.list (Post.previewDecoder maybeCred))
 
 

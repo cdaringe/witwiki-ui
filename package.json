@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel  index.html",
+    "dev": "parcel index.html",
     "dev_": "run-s build:tw dev:elm",
     "dev:elm": "elm make src/Main.elm --output elm.js --debug",
     "build": "run-p build:*",
