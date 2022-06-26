@@ -101,7 +101,7 @@ follow uname =
 
 article : Slug -> Endpoint
 article slug =
-    url [ "posts", Slug.toString slug ] [] Conduit
+    url [ "posts", Slug.toString slug ] [] Wit
 
 
 comments : Slug -> Endpoint
@@ -136,4 +136,4 @@ feed params =
 
 tags : Endpoint
 tags =
-    url [ "tags" ] [] Conduit
+    url [ "posts_tags", "recent" ] [] Wit

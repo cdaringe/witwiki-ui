@@ -4,7 +4,6 @@ module Page.Login exposing (Model, Msg, init, subscriptions, toSession, update, 
 -}
 
 import Api exposing (Cred)
-import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)

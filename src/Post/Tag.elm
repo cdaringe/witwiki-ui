@@ -29,8 +29,11 @@ toString (Tag slug) =
 
 list : Http.Request (List Tag)
 list =
-    Decode.field "tags" (Decode.list decoder)
-        |> Api.get Endpoint.tags Nothing
+    let
+        decodeResponse =
+            Decode.field "values" (Decode.list decoder)
+    in
+    Api.get Endpoint.tags Nothing decodeResponse
 
 
 
@@ -39,4 +42,4 @@ list =
 
 decoder : Decoder Tag
 decoder =
-    Decode.map Tag Decode.string
+    Decode.map Tag (Decode.field "tag" Decode.string)

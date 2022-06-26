@@ -75,10 +75,8 @@ init session =
       , feed = Loading
       }
     , Cmd.batch
-        [ fetchFeed session feedTab 1
-            |> Task.attempt CompletedFeedLoad
-        , Tag.list
-            |> Http.send CompletedTagsLoad
+        [ Task.attempt CompletedFeedLoad (fetchFeed session feedTab 1)
+        , Http.send CompletedTagsLoad Tag.list
         , Task.perform GotTimeZone Time.here
         , Task.perform (\_ -> PassedSlowLoadThreshold) Loading.slowThreshold
         ]
@@ -364,8 +362,7 @@ fetchFeed session feedTabs page =
                     in
                     Api.get (Endpoint.posts (firstParam :: params)) maybeCred decoder
     in
-    Http.toTask request
-        |> Task.map (Feed.init session)
+    Task.map (Feed.init session) (Http.toTask request)
 
 
 articlesPerPage : Int
